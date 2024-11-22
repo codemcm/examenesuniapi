@@ -1,20 +1,23 @@
-const express = require("express");
-const app = express();
-const getExamenes = (request, response) => {
-    const examen = {
+
+const Examenes = function(examen) {
+    this.nombreexamen = examen.nombreexamen;
+    this.id = examen.id;
+}
+
+Examenes.getAll = function (response) {
+    const examen = [{
         id: 1,
         nombreexamen: "Matemáticas"
-    };
-    response.json(examen);
-};
-
-const getExamen = (request, response) => {
-    const examen = {
-        id: 1,
+        }, {
+        id: 2,
         nombreexamen: "Matemáticas"
-    };
-    response.json(examen);
+        }];
+        
+        //response(new Error("No se encontraron exámenes"), null);
+        response(null, examen);
+    
+    
 };
-app.route("/examenes").get(getExamenes);
 
-module.exports = app;
+
+module.exports = Examenes;
