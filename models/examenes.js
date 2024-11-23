@@ -87,6 +87,20 @@ Examenes.updateById = function (id, examen, result) {
     );  
 }
 
-
+Examenes.remove = function (id, result) {
+    dbMysql.query("DELETE FROM examen WHERE ExamenId = ?", id, function (err, res) {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        if (res.affectedRows == 0) {
+            result({ kind: "not_found" }, null);
+            return;
+        }
+        console.log("examen eliminado con id: ", id);
+        result(null, res);
+    });
+};
 
 module.exports = Examenes;
