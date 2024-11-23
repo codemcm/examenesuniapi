@@ -67,4 +67,26 @@ Examenes.getExamenById = function (examenId, response) {
     });
 };
 
+Examenes.updateById = function (id, examen, result) {
+    dbMysql.query(
+        "UPDATE examen SET Nombre = ?, Notas = ?, CategoriaId = ? WHERE ExamenId = ?",
+        [examen.Nombre, examen.Notas, examen.CategoriaId, id],
+        function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(null, err);
+                return;
+            }
+            if (res.affectedRows == 0) {
+                result({ kind: "not_found" }, null);
+                return;
+            }
+            console.log("examen actualizado: ", { id: id, ...examen }); 
+            result(null, { id: id, ...examen });
+        }   
+    );  
+}
+
+
+
 module.exports = Examenes;

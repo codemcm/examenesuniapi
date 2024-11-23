@@ -6,5 +6,6 @@ router.get('/', ExamenController.findAll);
 router.get('/listaTodos', ExamenController.listaTodos);
 router.post('/registra', ExamenController.registra);
 router.get('/:examenId', ExamenController.findOne);
+router.put('/:examenId', ExamenController.update);
 
 module.exports = router;
