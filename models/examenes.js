@@ -23,6 +23,7 @@ Examenes.getAllDummy = function (response) {
     
     
 };
+
 Examenes.listaTodos = function (response) {
     dbMysql.query("SELECT * FROM examen", function (err, res) {
         if (err) {
@@ -35,5 +36,18 @@ Examenes.listaTodos = function (response) {
     });
 };
 
+Examenes.Registrar = function (examen, response) {
+    dbMysql.query("INSERT INTO examen SET ?", examen, function (err, res) {
+        if (err) {
+            console.log("error: ", err);
+            response(err, null);
+            return;
+        }
+        examen.ExamenId = res.insertId;
+        //console.log("examen----: ", { id: res.insertId, ...examen });
+        response(null, examen);  
+    }
+    );
+}
 
 module.exports = Examenes;
