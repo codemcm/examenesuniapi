@@ -50,4 +50,21 @@ Examenes.Registrar = function (examen, response) {
     );
 }
 
+Examenes.getExamenById = function (examenId, response) {
+    let sqlQuery = "SELECT * FROM examen WHERE ExamenId = ?";
+    dbMysql.query(sqlQuery, examenId, function (err, res) {
+        if (err) {
+            console.log("error: ", err);
+            response(err, null);
+            return;
+        }
+        if (res.length) {
+            console.log("examen encontrado: ", res[0]);
+            response(null, res[0]);
+            return;
+        }
+        response({ kind: "not_found" }, null);
+    });
+};
+
 module.exports = Examenes;
