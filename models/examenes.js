@@ -1,10 +1,15 @@
 
+"use strict";
+var dbMysql = require("./dbMysql");
+
 const Examenes = function(examen) {
-    this.nombreexamen = examen.nombreexamen;
-    this.id = examen.id;
+    this.ExamenId = examen.ExamenId;
+    this.Nombre = examen.Nombre;
+    this.Notas = examen.Notas;
+    this.CategoriaId = examen.CategoriaId;
 }
 
-Examenes.getAll = function (response) {
+Examenes.getAllDummy = function (response) {
     const examen = [{
         id: 1,
         nombreexamen: "Matemáticas"
@@ -17,6 +22,17 @@ Examenes.getAll = function (response) {
         response(null, examen);
     
     
+};
+Examenes.listaTodos = function (response) {
+    dbMysql.query("SELECT * FROM examen", function (err, res) {
+        if (err) {
+            console.log("error: ", err);
+            response(err, null);
+            return;
+        }
+        console.log("examen: ", res);
+        response(null, res);
+    });
 };
 
 
